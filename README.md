@@ -18,7 +18,7 @@ Create a virtual host in apache `xampp\apache\conf\extra\httpd-vhosts.conf`
 eg:
 ```
 <VirtualHost php_test:9090>
-    ServerAdmin webmaster@mcap.localhost
+    ServerAdmin webmaster@localhost
     DocumentRoot "C:/PHP_test/systems/src"
     ServerName localhost
 	ServerAlias php_test
