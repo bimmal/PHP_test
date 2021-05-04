@@ -31,7 +31,7 @@
             'bed'=>array('name'=>'Bed', "column"=>"bed",'hide_filter'=>true),
             'physician'=>array('name'=>'Admitting Consultant', "column"=>"physician"),
             'comment' => array('name' => 'Comment', 'toggle_all'=>true),
-            'dischage' => array('name' => 'Dischage', 'toggle_all'=>false),
+            'discharge' => array('name' => 'Discharge', 'toggle_all'=>false),
             
         );
 
