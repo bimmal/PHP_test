@@ -50,15 +50,17 @@ Open a browser and point to http://php_test:9090 and you'll be prompted with an 
 Following two system users were created in the application and both of them has the same password.
 
 **User 1**
-Username : `Admin`
-Password : `Password@123`
-Comments : Admin user is the only `Master Admin` who has privileges to grant Group permissions.
-
+```
+Username : Admin
+Password : Password@123
+Comments : Admin user is the only Master Admin who has privileges to grant Group permissions.
+```
 **User 2**
-Username : `test_user`
-Password : `Password@123`
+```
+Username : test_user
+Password : Password@123
 Comments : Use has some Admin privileges but can not grant Group Permissions.
-  
+```  
 
 ## Additional Info
 
@@ -66,17 +68,20 @@ This Application is developed using the open source php framework named `Riskpoi
 This framework provides all the neccesary classes and APIs to do rapid application development.
 all the framework related files are located in following directories.
 
-`C:\PHP_Test\systems\src\config`
-`C:\PHP_Test\systems\src\classes`
-`C:\PHP_Test\systems\src\*.php`
-`C:\PHP_Test\systems\src\includes`
-`C:\PHP_Test\systems\src\ajax`
-`C:\PHP_Test\systems\src\js`
-`C:\PHP_Test\systems\src\scripts`
-`C:\PHP_Test\systems\src\css`
-
+```
+C:\PHP_Test\systems\src\config
+C:\PHP_Test\systems\src\classes
+C:\PHP_Test\systems\src\*.php
+C:\PHP_Test\systems\src\includes
+C:\PHP_Test\systems\src\ajax
+C:\PHP_Test\systems\src\js
+C:\PHP_Test\systems\src\scripts
+C:\PHP_Test\systems\src\css
+```
 Following directories contains files related to this PHP test Application.
-`C:\PHP_Test\systems\src\app_application`
+```
+C:\PHP_Test\systems\src\app_application
+```
 
 All Application data classes must extend Object class.
 when ever you introduce a new class you need to run composer install to include that class in the autoload.php.
