@@ -30,9 +30,7 @@
             'room'=>array('name'=>'Room', "column"=>"room",'hide_filter'=>true),
             'bed'=>array('name'=>'Bed', "column"=>"bed",'hide_filter'=>true),
             'physician'=>array('name'=>'Admitting Consultant', "column"=>"physician"),
-            'comment' => array('name' => 'Comment', 'toggle_all'=>true),
-            'discharge' => array('name' => 'Discharge', 'toggle_all'=>false),
-            
+            'comment' => array('name' => 'Comment', 'toggle_all'=>true),                        
         );
 
         public function __construct() {
