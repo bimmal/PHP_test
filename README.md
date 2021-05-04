@@ -16,6 +16,7 @@ Download the code base to `C:\PHP_Test`
 Create a virtual host in apache `xampp\apache\conf\extra\httpd-vhosts.conf`
 
 eg:
+```
 <VirtualHost php_test:9090>
     ServerAdmin webmaster@mcap.localhost
     DocumentRoot "C:/PHP_test/systems/src"
@@ -28,6 +29,7 @@ eg:
 		Require all granted
 	</Directory>	
 </VirtualHost>
+```
 
 Create a mysql database named php_test and restore the db backup found under `sql` DIR.
 
