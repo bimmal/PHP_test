@@ -31,6 +31,8 @@ eg:
 </VirtualHost>
 ```
 
+make sure to add `127.0.0.1 php_test`  to the host file
+
 Create a mysql database named php_test and restore the db backup found under `sql` DIR.
 
 You need to configure the database parameters in the following php file. 
