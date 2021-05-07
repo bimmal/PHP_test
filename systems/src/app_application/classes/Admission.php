@@ -394,9 +394,11 @@
         function print_discharge_form($options = array()){
             global $db, $user1, $libhtml, $cfg, $my_get, $my_post;
 
+
             $html = $libhtml->form_start();
-            
-            $html .= "Implement Form here";
+            $html .= open_table();
+
+            $html .= $libhtml->render_form_table_row_date($this->object_name."[discharge_date]", $this->discharge_date, "Discharge Date", "discharge_date");
 
             $html .= $libhtml->render_actions(
                 array(
@@ -404,6 +406,8 @@
                 )
             );
 
+
+            $html .= open_table();
             $html .= $libhtml->form_end();
             return $html;
 
@@ -415,8 +419,29 @@
             // check if the discharge date is valid
             // are there any other inpatient encounters in progress on the date you wish to discharge?
             $error = false;
+            //var_dump($my_post[$this->object_name]['discharge_date']);
+            if($my_post[$this->object_name]['discharge_date'] == ''){
+                $error = true;
+                $_SESSION["feedback"] = g_feedback("error", "Discharge date cannot be empty.");
+            }
 
-           
+            // get admission details
+            $admission = get_clean_object($this->id, "Admission");
+
+            $admission_date = date('Y-m-d', strtotime($admission->date));
+            $discharge_date = date('Y-m-d', strtotime($my_post[$this->object_name]['discharge_date']));
+
+            if($my_post[$this->object_name]['discharge_date'] != ''){
+                if( $admission_date > $discharge_date){
+                    $error = true;
+                    $_SESSION["feedback"] = g_feedback("error", 'Discharge date cannot be before Admission date');
+                }
+            }
+
+            // get patient details
+            //$admission = get_clean_object($discharge_date, "Admission");
+            //$_SESSION["feedback"] = g_feedback("error", var_dump($admission));
+
 
             if (!empty($error)){
                 $_SESSION["show_popup"] = array(
@@ -428,13 +453,21 @@
                 );
 
                 return false;
+            }else{
+
+                $count = $db->select_value("count(id)", "admissions", array('WHERE date=?', array($my_post[$this->object_name]['discharge_date']),array('date')));
+
+                if($count >= 2){
+                    $_SESSION["feedback"] = g_feedback("error", "You can not have more than two Discharges in the same day ");
+                }else{
+                    parent::update(array(
+                        "discharged"=>1,
+                        "discharge_date"=>$my_post[$this->object_name]['discharge_date']
+                    ));
+                    $_SESSION["feedback"] = g_feedback("success", "Patient has been discharged. ");
+                }
+
             }
-
-
-            $_SESSION["feedback"] = g_feedback("success", "Patient has been discharged.");
-
-            
-            
 
             return false;
 
@@ -496,9 +529,22 @@
         function _set_table_list_row_items($item) {
             global $db, $cfg, $user1, $libhtml;
 
-            
-            
+            if($item->discharged !=='1'){
+                $item->discharge_date = href_link(array(
+                    "permission"=>$user1->{"app_application/discharge_patient.php"},
+                    "url"=>$cfg["website"] . "app_application/discharge_patient.php?admission_id=" .$item->id,
+                    "text"=>'Discharge',
+                    "tooltip"=>"Discharge Patient",
+                    "button"=>true,
+                    "popup"=>true,
+                ));
+            }
                         
         }
-        
+
+        function get_today_discharge_count($date){
+            global $db, $user1,$libhtml;
+
+            $count = $db->select_value("count(id)", "admissions", array('WHERE date=?', array($date),array('date')));
+        }
     }
