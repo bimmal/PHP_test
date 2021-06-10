@@ -2,7 +2,7 @@
 error_reporting(E_ALL ^ E_USER_NOTICE);
 
 $cfg = array();
-$cfg['base_dir'] = 'C:/PHP_Test/';
+$cfg['base_dir'] = 'C:/PHP_test/';
 $cfg['default_url'] = 'php_test:9090';
 $cfg['website_dir'] = $cfg['base_dir'];
 $cfg['systems_dir'] = $cfg['base_dir'] . 'systems/src/';
@@ -18,7 +18,7 @@ $cfg['static'] = $cfg['website_url'];
 $cfg['database'] = "MySQL";
 $cfg['dbhost'] = "localhost";
 $cfg['dbuser'] = "root";
-$cfg['dbpass'] = "mysql@dm1n";
+$cfg['dbpass'] = "";
 $cfg['dbname'] = "php_test";
 
 $cfg['md5_salt'] = "PHP Test Systems Login";
