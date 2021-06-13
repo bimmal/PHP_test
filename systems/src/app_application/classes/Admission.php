@@ -396,7 +396,11 @@
 
             $html = $libhtml->form_start();
             
-            $html .= "Implement Form here";
+            $html .= '<div class="form-group">
+    <label for="exampleInputEmail1">Discharge Date</label>
+    <input type="date" class="form-control" id="exampleInputEmail1" name="discharge_date" aria-describedby="emailHelp" placeholder="Select Date">
+    
+  </div>';
 
             $html .= $libhtml->render_actions(
                 array(
@@ -409,12 +413,53 @@
 
         }
 
-        function discharge(){
+        function discharge($item){
             global $db, $user1, $libhtml, $cfg, $my_get, $my_post, $crypt;
 
+
             // check if the discharge date is valid
-            // are there any other inpatient encounters in progress on the date you wish to discharge?
             $error = false;
+            $discharge_date = $_POST['discharge_date'];
+//            echo $this->date;
+//            echo $discharge_date;
+//
+//            die();
+            if ($discharge_date) {
+
+                if($discharge_date >= $this->date ){
+
+                    $same_day_discharges = $db->select_value("count(id)", "admissions", array('WHERE discharge_date=?', array($discharge_date),array('integer')));
+                    if($same_day_discharges > 2){
+                        $_SESSION["feedback"] .= g_feedback("error", "Already two discharges in same day");
+                        $error = true;
+                    }else{
+                        $db->update('admissions', array("discharged"=>1,"discharge_date"=>$discharge_date), array('WHERE id = ?',array("id"=>$this->id), array('integer')));
+                        parent::update(array(
+                            "discharged"=>1,
+                            "discharge_date"=>$discharge_date
+                        ));
+
+                    }
+
+                }else{
+                    $_SESSION["feedback"] .= g_feedback("error", "Discharge date should be greater than admitted date.");
+                    $error = true;
+                }
+
+
+
+            } else {
+
+
+
+                $_SESSION["feedback"] .= g_feedback("error", "Discharge Date is required");
+                $error = true;
+            }
+            echo $discharge_date;
+
+
+            // are there any other inpatient encounters in progress on the date you wish to discharge?
+
 
            
 
@@ -496,7 +541,19 @@
         function _set_table_list_row_items($item) {
             global $db, $cfg, $user1, $libhtml;
 
-            
+            if($item->discharged){
+                $item->discharge_date = $item->discharge_date;
+            }else{
+                $item->discharge_date = href_link(array(
+                    "permission"=>$user1->{$libhtml->path ."discharge_patient.php"},
+                    "url"=>$cfg["root"] . $libhtml->path ."discharge_patient.php?id=$item->id",
+                    "tooltip"=>"Discharge Patient",
+                    "button"=>true,
+                    "text"=>"Discharge",
+                    "popup"=>true,
+                ));
+            }
+
             
                         
         }
