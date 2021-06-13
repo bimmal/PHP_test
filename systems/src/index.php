@@ -1,4 +1,6 @@
 <?php
+
+
     if ( !file_exists(dirname(__FILE__).'/config/global.php') ) {
         error_log("Please create a global.php file at location: " . dirname(__FILE__) . "/config/global.php");
         include_once(dirname(__FILE__) . "/missing_config_file.html");

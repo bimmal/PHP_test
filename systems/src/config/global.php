@@ -2,8 +2,8 @@
 error_reporting(E_ALL ^ E_USER_NOTICE);
 
 $cfg = array();
-$cfg['base_dir'] = 'C:/PHP_Test/';
-$cfg['default_url'] = 'php_test:9090';
+$cfg['base_dir'] = 'D:/xampp/htdocs/php_test/';
+$cfg['default_url'] = 'php_test/';
 $cfg['website_dir'] = $cfg['base_dir'];
 $cfg['systems_dir'] = $cfg['base_dir'] . 'systems/src/';
 $cfg['ENV'] = '';//local-dev
@@ -18,7 +18,7 @@ $cfg['static'] = $cfg['website_url'];
 $cfg['database'] = "MySQL";
 $cfg['dbhost'] = "localhost";
 $cfg['dbuser'] = "root";
-$cfg['dbpass'] = "mysql@dm1n";
+$cfg['dbpass'] = "";
 $cfg['dbname'] = "php_test";
 
 $cfg['md5_salt'] = "PHP Test Systems Login";
@@ -93,5 +93,5 @@ $cfg['upload_whitelist'] = array(
 $cfg['session.gc_maxlifetime'] = ini_get('session.gc_maxlifetime');
 // ini_set('session.gc_maxlifetime', $cfg['session_timeout']);
 
-require_once($cfg['source_root'] . "../vendor/autoload.php"); 								
+require_once($cfg['source_root'] . "../vendor/autoload.php");
 ?>
